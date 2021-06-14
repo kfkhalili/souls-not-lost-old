@@ -1,25 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from 'react'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import Footer from './components/Footer'
+import Images from './components/Images'
+import About from './components/About'
 
-function App() {
+const App = () => {
+  const [images, setImages] = useState([])
+
+  useEffect(() => {
+    const getImages = async () => {
+      const imagesFromServer = [{name: "Ghassan", url: "https://images.gr-assets.com/authors/1506632700p8/16473822.jpg"}]
+      setImages(imagesFromServer)
+    }
+
+    getImages()
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Router>
+      <div className='container'>
+        <Route
+          path='/'
+          exact
+          render={(props) => (
+            <>
+              {images.length > 0 ? (
+                <Images
+                  images={images}
+                />
+              ) : (
+                'No Images To Show'
+              )}
+            </>
+          )}
+        />
+        <Route path='/about' component={About} />
+        <Footer />
+      </div>
+    </Router>
+  )
 }
 
-export default App;
+export default App
+
+
+
+
