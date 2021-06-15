@@ -5,7 +5,8 @@ import Images from './components/Images'
 import About from './components/About'
 
 const App = () => {
-  const [images, setImages] = useState([])
+  const [images, setImages] = useState([]);
+  const [cats, setCats] = useState([]);
 
   useEffect(() => {
     const getImages = async () => {
@@ -19,7 +20,24 @@ const App = () => {
       setImages(imagesFromServer)
     }
 
-    getImages()
+    const getCats = async () => {
+      function getRandomSize(min, max) {
+        return Math.round(Math.random() * (max - min) + min);
+      }
+      
+      var allImages = [];
+      
+      for (var i = 0; i < 100; i++) {
+        var width = getRandomSize(200, 400);
+        var height =  getRandomSize(200, 400);
+        allImages = [...allImages, {name: `cat${i}`, url: `https://placekitten.com/${width}/${height}`}];
+      }
+      console.log(allImages)
+      
+      setCats(allImages)
+    }
+
+    getCats()
   }, [])
 
   return (
@@ -30,9 +48,9 @@ const App = () => {
           exact
           render={(props) => (
             <>
-              {images.length > 0 ? (
+              {cats.length > 0 ? (
                 <Images
-                  images={images}
+                  images={cats}
                 />
               ) : (
                 'No Images To Show'
