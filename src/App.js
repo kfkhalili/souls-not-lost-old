@@ -6,7 +6,6 @@ import About from './components/About'
 
 const App = () => {
   const [images, setImages] = useState([]);
-  const [cats, setCats] = useState([]);
 
   useEffect(() => {
     const getImages = async () => {
@@ -16,28 +15,14 @@ const App = () => {
         {name: 'Razan Al Najjar', url: 'https://www.medico.de/fileadmin/_processed_/6/a/csm_Razan_Al-Najja_dc6cf4f633.jpg',},
         {name: 'Ali Abu Alia', url:'https://live-production.wcms.abc-cdn.net.au/f8ac396c7bcce4e317819445ebb1a4a0',},
         {name: 'Tom Hurndall', url:'https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/cartoons/2010/7/20/1279616891136/Tom-Hurndall-006.jpg?width=620&quality=45&auto=format&fit=max&dpr=2&s=ba2bb33c5b24a9c0d8556f192ebae014',},
+        {name: 'Wadie Haddad', url: 'https://upload.wikimedia.org/wikipedia/commons/c/c4/Wadie_Addad2.jpg'},
+        {name: 'Ahmed Bouchikhi', url: 'https://upload.wikimedia.org/wikipedia/en/7/71/Ahmed_Bouchiki.jpg'},
+        {name: 'Imad Mughniyeh', url: 'https://upload.wikimedia.org/wikipedia/en/e/ed/Imad_Mughniyeh.jpeg'}
       ]
       setImages(imagesFromServer)
     }
 
-    const getCats = async () => {
-      function getRandomSize(min, max) {
-        return Math.round(Math.random() * (max - min) + min);
-      }
-      
-      var allImages = [];
-      
-      for (var i = 0; i < 100; i++) {
-        var width = getRandomSize(200, 400);
-        var height =  getRandomSize(200, 400);
-        allImages = [...allImages, {name: `cat${i}`, url: `https://placekitten.com/${width}/${height}`}];
-      }
-      console.log(allImages)
-      
-      setCats(allImages)
-    }
-
-    getCats()
+    getImages()
   }, [])
 
   return (
@@ -48,9 +33,9 @@ const App = () => {
           exact
           render={(props) => (
             <>
-              {cats.length > 0 ? (
+              {images.length > 0 ? (
                 <Images
-                  images={cats}
+                  images={images}
                 />
               ) : (
                 'No Images To Show'
