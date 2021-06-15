@@ -10,8 +10,13 @@ const Image = ({ image }) => {
         setHover(false);
     };
 
+    const getRandomSize = (min, max) => 
+        Math.round(Math.random() * (max - min) + min);
+    
+    const height = getRandomSize(200,400).toString()+'px'
+
     const imgWrapStyle = {position:'relative', display:'inline-block'}
-    const imgImgStyle = {verticalAlign:'bottom'}
+    const imgImgStyle = {height:height, verticalAlign:'bottom'}
 
     const imgDescriptionLayerStyle = {
         position:'absolute', top:0, bottom:0, left:0, right:0,

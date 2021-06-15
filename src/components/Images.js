@@ -1,13 +1,22 @@
-import Image from './Image'
+import React from "react";
+
+import Image from "./Image";
+import './Images.css'
 
 const Images = ({ images }) => {
-  return (
-    <>
-      {images.map((image, index) => (
-        <Image key={index} image={image}/>
-      ))}
-    </>
-  )
-}
+  const imagesContainerStyle = {
+    display: "flex",
+    flexWrap: "wrap",
+    float: "left",
+  };
 
-export default Images
+  return (
+    <div className="imagesContainer" style={imagesContainerStyle}>
+      {images.map((image, index) => (
+        <Image key={index} image={image} />
+      ))}
+    </div>
+  );
+};
+
+export default Images;

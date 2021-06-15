@@ -9,7 +9,13 @@ const App = () => {
 
   useEffect(() => {
     const getImages = async () => {
-      const imagesFromServer = [{name: "Ghassan", url: "https://images.gr-assets.com/authors/1506632700p8/16473822.jpg"}]
+      const imagesFromServer = [
+        {name: 'Ghassan Kanafani', url: 'https://images.gr-assets.com/authors/1506632700p8/16473822.jpg',},
+        {name: 'Yusuf Abu Hussein', url: 'https://www.egypttoday.com/siteimages/Larg/202105190238173817.jpg',},
+        {name: 'Razan Al Najjar', url: 'https://www.medico.de/fileadmin/_processed_/6/a/csm_Razan_Al-Najja_dc6cf4f633.jpg',},
+        {name: 'Ali Abu Alia', url:'https://live-production.wcms.abc-cdn.net.au/f8ac396c7bcce4e317819445ebb1a4a0',},
+        {name: 'Tom Hurndall', url:'https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/cartoons/2010/7/20/1279616891136/Tom-Hurndall-006.jpg?width=620&quality=45&auto=format&fit=max&dpr=2&s=ba2bb33c5b24a9c0d8556f192ebae014',},
+      ]
       setImages(imagesFromServer)
     }
 
