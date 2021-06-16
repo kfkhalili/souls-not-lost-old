@@ -12,7 +12,6 @@ const Image = ({ image }) => {
 
     const [isModalOpen, setOpenModal] = React.useState(false);
     const openModal = () => {
-        console.log("hey you clicked!");
         setOpenModal(true);
     };
 
