@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
+import AppBar from './components/NavBar'
 import Footer from './components/Footer'
 import Images from './components/Images'
 import About from './components/About'
@@ -17,7 +18,8 @@ const App = () => {
         {name: 'Tom Hurndall', url:'https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/cartoons/2010/7/20/1279616891136/Tom-Hurndall-006.jpg?width=620&quality=45&auto=format&fit=max&dpr=2&s=ba2bb33c5b24a9c0d8556f192ebae014',},
         {name: 'Wadie Haddad', url: 'https://upload.wikimedia.org/wikipedia/commons/c/c4/Wadie_Addad2.jpg'},
         {name: 'Ahmed Bouchikhi', url: 'https://upload.wikimedia.org/wikipedia/en/7/71/Ahmed_Bouchiki.jpg'},
-        {name: 'Imad Mughniyeh', url: 'https://upload.wikimedia.org/wikipedia/en/e/ed/Imad_Mughniyeh.jpeg'}
+        {name: 'Imad Mughniyeh', url: 'https://upload.wikimedia.org/wikipedia/en/e/ed/Imad_Mughniyeh.jpeg'},
+        {name: 'Mai Afaneh', url: 'https://www.palestinechronicle.com/wp-content/uploads/2021/06/Mai-Afaneh-678x455.png'},
       ]
       setImages(imagesFromServer)
     }
@@ -27,6 +29,7 @@ const App = () => {
 
   return (
     <Router>
+      <AppBar />
       <div className='container'>
         <Route
           path='/'
