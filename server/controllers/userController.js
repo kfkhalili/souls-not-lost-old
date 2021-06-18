@@ -23,7 +23,7 @@ const register = async (req, res) => {
       $or: [{ username: username }, { email: email }],
     });
     if (user) {
-      return res.status(400).send("username or email already taken");
+      return res.status(409).send("username or email already taken");
     }
 
     newUser.save();

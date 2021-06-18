@@ -22,23 +22,31 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(2),
     },
   },
+
+  generalError:{
+    color: 'red',
+    fontWeight: 'bold',
+  }
 }));
 
 const RegisterForm = ({ handleClose }) => {
   const classes = useStyles();
-  const { handleSubmit, control } = useForm();
-
-  const onSubmit = (data) => {
-    console.log(data);
-    AuthService.register(data.firstName, data.lastName, data.email, data.password).then(
-      (response) => {
-        this.setState({
-          message: response.data.message,
-          successful: true,
-        });
-      },
+  const {
+    handleSubmit,
+    control,
+    setError,
+    formState: { errors },
+    clearErrors
+  } = useForm({reValidateMode: 'onChange'});
+  const onSubmit = ({ username, email, password }) => {
+    AuthService.register(username, email, password).then(
+      (res) => console.log(res),
       (error) => {
-        console.log(error);
+          setError('general', {
+            type: "manual",
+            message: error.response.data,
+          });
+        ;
       }
     );
   };
@@ -46,36 +54,23 @@ const RegisterForm = ({ handleClose }) => {
   return (
     <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
       <Controller
-        name="firstName"
+        name="username"
         control={control}
         defaultValue=""
         render={({ field: { onChange, value }, fieldState: { error } }) => (
           <TextField
-            label="First Name"
+            label="Username"
             variant="filled"
             value={value}
-            onChange={onChange}
+            onChange={(e) => {
+              clearErrors("general");
+              onChange(e);
+            }}
             error={!!error}
             helperText={error ? error.message : null}
           />
         )}
-        rules={{ required: "First name required" }}
-      />
-      <Controller
-        name="lastName"
-        control={control}
-        defaultValue=""
-        render={({ field: { onChange, value }, fieldState: { error } }) => (
-          <TextField
-            label="Last Name"
-            variant="filled"
-            value={value}
-            onChange={onChange}
-            error={!!error}
-            helperText={error ? error.message : null}
-          />
-        )}
-        rules={{ required: "Last name required" }}
+        rules={{ required: "Username required" }}
       />
       <Controller
         name="email"
@@ -86,7 +81,10 @@ const RegisterForm = ({ handleClose }) => {
             label="Email"
             variant="filled"
             value={value}
-            onChange={onChange}
+            onChange={(e) => {
+              clearErrors("general");
+              onChange(e);
+            }}
             error={!!error}
             helperText={error ? error.message : null}
             type="email"
@@ -111,6 +109,7 @@ const RegisterForm = ({ handleClose }) => {
         )}
         rules={{ required: "Password required" }}
       />
+      {errors.general && <p className={classes.generalError}>{errors.general.message}</p>}
       <div>
         <Button variant="contained" onClick={handleClose}>
           Cancel
