@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import AppBar from "./components/NavBar";
+import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import Images from "./components/Images";
 import About from "./components/About";
@@ -61,7 +61,7 @@ const App = () => {
 
   return (
     <Router>
-      <AppBar />
+      <NavBar />
       <div className="container">
         <Route
           path="/"

@@ -5,7 +5,7 @@ const path = require('path');
 const cors = require('cors');
 
 const fileRoutes = require('./routes/fileUploadRoutes');
-const userRoutes = require('./routes/userRoutes')
+const authRoutes = require('./routes/authRoutes')
 
 const app = express();
 app.use(cors());
@@ -15,7 +15,7 @@ require('./database')();
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/api', fileRoutes.routes);
-app.use('/api', userRoutes.routes);
+app.use('/api/auth', authRoutes.routes);
 
 // log your server is running and the port
 const port = process.env.PORT;

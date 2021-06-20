@@ -23,6 +23,15 @@ const userSchema = new Schema(
       index: true,
     },
     password: { type: String, required: true, trim: true },
+    status: {
+      type: String,
+      enum: ["Pending", "Active"],
+      default: "Pending",
+    },
+    confirmationCode: {
+      type: String,
+      unique: true,
+    },
   },
   { timestamps: true }
 );

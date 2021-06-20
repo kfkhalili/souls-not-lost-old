@@ -6,7 +6,10 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
+import { withSnackbar } from "./SnackbarHOC";
 import RegisterModal from './RegisterModal';
+import LoginModal from './LoginModal';
+import AuthService from "../services/auth";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -14,6 +17,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: '#000'
   },
   menuButton: {
+    fontWeight: 'bold',
     marginRight: theme.spacing(1),
   },
   title: {
@@ -22,17 +26,25 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Navbar = () => {
+const Navbar = ({ snackbarMessageFunc }) => {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
+  const [openRegister, setOpenRegister] = useState(false);
+  const handleOpenRegister = () => setOpenRegister(true);
+  const handleCloseRegister = () => setOpenRegister(false);
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+
+  const [user, setUser] = useState(localStorage.getItem("user"))
+  const [loggedIn, setLoggedIn] = useState(user ? true: false);
+  const handleLogOut = () => {
+    AuthService.logout()
+    setUser({});
+    setLoggedIn(false);
+  }
+
+  const [openLogin, setOpenLogin] = useState(false);
+  const handleOpenLogin = () => setOpenLogin(true);
+  const handleCloseLogin = () => setOpenLogin(false);
 
   return (
     <AppBar className={classes.root} position="static">
@@ -40,15 +52,31 @@ const Navbar = () => {
         <Typography variant="h6" className={classes.title}>
           Souls Not Lost
         </Typography>
-        
-        <Button color="inherit" onClick={handleOpen}>
+        {loggedIn ?
+        <>
+        <Button className={classes.menuButton} color="inherit">
+          Upload
+        </Button>
+        <Button className={classes.menuButton} color="inherit" onClick={handleLogOut}>
+          Logout
+        </Button>
+        </>
+        :
+        <>
+        <Button className={classes.menuButton} color="inherit" onClick={handleOpenLogin}>
+          Login
+        </Button>
+        <Button className={classes.menuButton} color="inherit" onClick={handleOpenRegister}>
           Signup
         </Button>
+        </>
+        }
       </Toolbar>
-      <RegisterModal open={open} handleClose={handleClose} />
+      <RegisterModal open={openRegister} handleClose={handleCloseRegister} setLoggedIn={setLoggedIn} setUser={setUser} snackbarMessageFunc={snackbarMessageFunc} />
+      <LoginModal open={openLogin} handleClose={handleCloseLogin} setLoggedIn={setLoggedIn} setUser={setUser} snackbarMessageFunc={snackbarMessageFunc} />
     </AppBar>
   );
 };
 
-export default Navbar;
+export default withSnackbar(Navbar);
 
