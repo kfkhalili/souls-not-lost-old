@@ -52,6 +52,30 @@ const App = () => {
           name: "Mai Afaneh",
           url: "https://www.palestinechronicle.com/wp-content/uploads/2021/06/Mai-Afaneh-678x455.png",
         },
+        {
+          name: "Fadi Mohammad al-Batsh",
+          url: "https://cdnimg.vietnamplus.vn/uploaded/mtpyelagtpy/2018_04_21/fadi_mohammad_albatsh_21.jpg",
+        },
+        {
+          name: "Rachel Corrie",
+          url: 'https://imemc.org/wp-content/uploads/2017/03/rachel-corriecourtesy-rachel-corrie-foundation-1.jpg'
+        },
+        {
+          name: "Bassel al-Araj",
+          url: "https://upload.wikimedia.org/wikipedia/en/c/cd/Bassel_al-Araj.jpg"
+        },
+        {
+          name: 'İbrahim Bilgen',
+          url: 'https://upload.wikimedia.org/wikipedia/commons/0/08/Bilgen.jpg'
+        },
+        {
+          name: 'Çetin Topçuoğlu',
+          url: 'https://upload.wikimedia.org/wikipedia/commons/9/9c/Cetintopcu.jpg'
+        },
+        {
+          name: 'Furkan Doğan',
+          url: 'https://upload.wikimedia.org/wikipedia/en/7/7d/Furkan_Do%C4%9Fan.jpg'
+        },
       ];
       setImages(imagesFromServer);
     };

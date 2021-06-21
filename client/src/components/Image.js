@@ -26,6 +26,8 @@ const useStyles = makeStyles((theme) => ({
     imgDescriptionHover: Object.assign(
         {}, imgDescription, { transform: 'translateY(0)' }),
 
+    imgHover: {filter: 'grayscale(100%)'},
+
     figure: {position:'relative'},
   }));
 
@@ -48,15 +50,21 @@ const Image = ({ image }) => {
     return (
     <>
         <figure className={classes.figure} onMouseEnter={onHover} onMouseLeave={onLeave} onClick={openModal}>
-            <img src={image.url} alt={image.name}/>
-            { hover ? 
+            
+            { hover ?
+                <>
+                <img className={classes.imgHover} src={image.url} alt={image.name}/>
                 <div className={classes.imgDescriptionLayerHover}>
-                <h1 className={classes.imgDescriptionHover}>{image.name}</h1>
+                <h2 className={classes.imgDescriptionHover}>{image.name}</h2>
                 </div>
+                </>
                 :
+                <>
+                <img src={image.url} alt={image.name}/>
                 <div className={classes.imgDescriptionLayerNoHover}>
-                <h1 className={classes.imgDescriptionNoHover}>{image.name}</h1>
+                <h2 className={classes.imgDescriptionNoHover}>{image.name}</h2>
                 </div>
+                </>
             }
         </figure>
         { isModalOpen ? <ImageModal image={image} open={isModalOpen} setOpen={setOpenModal}/> : null }

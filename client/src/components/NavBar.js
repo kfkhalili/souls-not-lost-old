@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import { withSnackbar } from "./SnackbarHOC";
 import RegisterModal from './RegisterModal';
 import LoginModal from './LoginModal';
+import UploadModal from './UploadModal';
 import AuthService from "../services/auth";
 
 const useStyles = makeStyles(theme => ({
@@ -46,6 +47,10 @@ const Navbar = ({ snackbarMessageFunc }) => {
   const handleOpenLogin = () => setOpenLogin(true);
   const handleCloseLogin = () => setOpenLogin(false);
 
+  const [openUpload, setOpenUpload] = useState(false);
+  const handleOpenUpload = () => setOpenUpload(true);
+  const handleCloseUpload = () => setOpenUpload(false);
+
   return (
     <AppBar className={classes.root} position="static">
       <Toolbar>
@@ -54,7 +59,7 @@ const Navbar = ({ snackbarMessageFunc }) => {
         </Typography>
         {loggedIn ?
         <>
-        <Button className={classes.menuButton} color="inherit">
+        <Button className={classes.menuButton} color="inherit" onClick={handleOpenUpload}>
           Upload
         </Button>
         <Button className={classes.menuButton} color="inherit" onClick={handleLogOut}>
@@ -74,6 +79,7 @@ const Navbar = ({ snackbarMessageFunc }) => {
       </Toolbar>
       <RegisterModal open={openRegister} handleClose={handleCloseRegister} setLoggedIn={setLoggedIn} setUser={setUser} snackbarMessageFunc={snackbarMessageFunc} />
       <LoginModal open={openLogin} handleClose={handleCloseLogin} setLoggedIn={setLoggedIn} setUser={setUser} snackbarMessageFunc={snackbarMessageFunc} />
+      <UploadModal open={openUpload} handleClose={handleCloseUpload} snackbarMessageFunc={snackbarMessageFunc} />
     </AppBar>
   );
 };
