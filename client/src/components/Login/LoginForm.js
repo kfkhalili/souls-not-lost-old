@@ -4,7 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { useForm, Controller } from "react-hook-form";
 
-import AuthService from "../services/auth";
+import AuthService from "../../services/auth";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const RegisterForm = ({ handleClose, setLoggedIn, setUser, snackbarMessageFunc }) => {
+const LoginForm = ({ handleClose, setLoggedIn, setUser, snackbarMessageFunc }) => {
   const classes = useStyles();
 
   const {
@@ -40,24 +40,13 @@ const RegisterForm = ({ handleClose, setLoggedIn, setUser, snackbarMessageFunc }
     clearErrors,
   } = useForm({ reValidateMode: "onChange" });
 
-  const onSubmit = ({ username, email, password }) => {
-    AuthService.register(username, email, password).then(
-      (registerRes) => {
-        snackbarMessageFunc(`${registerRes.data.message} | يعطيك العافية`);
-        AuthService.login(username, password).then(
-          (loginRes) => {
-            setLoggedIn(true);
-            setUser(localStorage.getItem("user"));
-            snackbarMessageFunc(`${loginRes.username} logged in | أهلا وسهلا`);
-            handleClose();
-          },
-          (error) => {
-            setError("general", {
-              type: "manual",
-              message: error.response.data,
-            });
-          }
-        );
+  const onSubmit = ({ usernameOrEmail, password }) => {
+    AuthService.login(usernameOrEmail, password).then(
+      (loginRes) => {
+        setLoggedIn(true);
+        setUser(localStorage.getItem("user"));
+        snackbarMessageFunc(`${loginRes.username} logged in | أهلا وسهلا`);
+        handleClose();
       },
       (error) => {
         setError("general", {
@@ -71,12 +60,12 @@ const RegisterForm = ({ handleClose, setLoggedIn, setUser, snackbarMessageFunc }
   return (
     <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
       <Controller
-        name="username"
+        name="usernameOrEmail"
         control={control}
         defaultValue=""
         render={({ field: { onChange, value }, fieldState: { error } }) => (
           <TextField
-            label="Username"
+            label="Username or email"
             variant="filled"
             value={value}
             onChange={(e) => {
@@ -87,27 +76,7 @@ const RegisterForm = ({ handleClose, setLoggedIn, setUser, snackbarMessageFunc }
             helperText={error ? error.message : null}
           />
         )}
-        rules={{ required: "Username required" }}
-      />
-      <Controller
-        name="email"
-        control={control}
-        defaultValue=""
-        render={({ field: { onChange, value }, fieldState: { error } }) => (
-          <TextField
-            label="Email"
-            variant="filled"
-            value={value}
-            onChange={(e) => {
-              clearErrors("general");
-              onChange(e);
-            }}
-            error={!!error}
-            helperText={error ? error.message : null}
-            type="email"
-          />
-        )}
-        rules={{ required: "Email required" }}
+        rules={{ required: "Username or email required" }}
       />
       <Controller
         name="password"
@@ -134,11 +103,11 @@ const RegisterForm = ({ handleClose, setLoggedIn, setUser, snackbarMessageFunc }
           Cancel
         </Button>
         <Button type="submit" variant="contained" color="primary">
-          Signup
+          Login
         </Button>
       </div>
     </form>
   );
 };
 
-export default RegisterForm;
+export default LoginForm;

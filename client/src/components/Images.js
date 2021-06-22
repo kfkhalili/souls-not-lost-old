@@ -1,4 +1,4 @@
-import Image from "./Image";
+import Image from "./Image/Image";
 import './Images.css'
 
 const Images = ({ images }) => {

@@ -1,46 +1,39 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import clsx from "clsx";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
-  upload: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "left",
-    alignItems: "center",
-    padding: theme.spacing(1),
-
-    "& .MuiTextField-root": {
-      margin: theme.spacing(1),
-      width: "300px",
-    },
-    "& .MuiButtonBase-root": {
-      margin: theme.spacing(3),
-    },
+  button: {
+    margin: theme.spacing(1),
+    width: "100%",
   },
 }));
 
-const FileUploader = (props) => {
+const FileUploader = ({ handleFile, setDialogPhoto, error }) => {
   const classes = useStyles();
 
   const hiddenFileInput = React.useRef(null);
 
-  const handleClick = (event) => {
+  const handleClick = () => {
     hiddenFileInput.current.click();
   };
   const handleChange = (event) => {
     const fileUploaded = event.target.files[0];
-    props.handleFile(fileUploaded);
+    setDialogPhoto(URL.createObjectURL(fileUploaded));
+    handleFile(fileUploaded);
   };
   return (
-    <>
+    <div>
       <Button
         variant="outlined"
-        className={clsx(classes.margin, classes.textField)}
+        color="default"
+        className={classes.button}
         onClick={handleClick}
+        startIcon={<CloudUploadIcon />}
       >
-        Upload a picture
+        Upload
+        <br />
       </Button>
       <input
         type="file"
@@ -48,7 +41,10 @@ const FileUploader = (props) => {
         onChange={handleChange}
         style={{ display: "none" }}
       />
-    </>
+      {error && (
+        <span style={{ color: "red", fontSize: "12px" }}>A picture is required</span>
+      )}
+    </div>
   );
 };
 

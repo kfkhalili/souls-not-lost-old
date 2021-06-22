@@ -7,9 +7,9 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
 import { withSnackbar } from "./SnackbarHOC";
-import RegisterModal from './RegisterModal';
-import LoginModal from './LoginModal';
-import UploadModal from './UploadModal';
+import RegisterModal from './Register/RegisterModal';
+import LoginModal from './Login/LoginModal';
+import UploadModal from './Upload/UploadModal';
 import AuthService from "../services/auth";
 
 const useStyles = makeStyles(theme => ({
