@@ -1,6 +1,5 @@
 'use strict';
 const SingleFile = require('../models/SingleFile');
-const MultipleFile = require('../models/MultipleFile');
 
 const extractFileDetails = (file) => {
     console.log(file);
@@ -22,23 +21,6 @@ const singleFileUpload = async (req, res, next) => {
     }
 }
 
-const multipleFileUpload = async (req, res, next) => {
-    try{
-        const filesArray = req.files.map(element => {
-            const file = extractFileDetails(element.file);
-            filesArray.push(file);
-        });
-        const multipleFiles = new MultipleFile({
-            title: req.body.title,
-            files: filesArray 
-        });
-        await multipleFiles.save();
-        res.status(201).send('Files Uploaded Successfully');
-    }catch(error) {
-        res.status(400).send(error.message);
-    }
-}
-
 const getAllSingleFiles = async (req, res, next) => {
     try{
         const files = await SingleFile.find();
@@ -48,14 +30,6 @@ const getAllSingleFiles = async (req, res, next) => {
     }
 }
 
-const getAllMultipleFiles = async (req, res, next) => {
-    try{
-        const files = await MultipleFile.find();
-        res.status(200).send(files);
-    }catch(error) {
-        res.status(400).send(error.message);
-    }
-}
 
 const fileSizeFormatter = (bytes, decimal) => {
     if(bytes === 0){
@@ -70,7 +44,5 @@ const fileSizeFormatter = (bytes, decimal) => {
 
 module.exports = {
     singleFileUpload,
-    multipleFileUpload,
     getAllSingleFiles,
-    getAllMultipleFiles
 }

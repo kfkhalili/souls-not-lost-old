@@ -8,7 +8,7 @@ import { useForm, Controller } from "react-hook-form";
 import MuiTextField from "../MuiComponents/MuiTextField";
 import FileUploader from "./FileUploader";
 
-import ImageService from "../../services/image"
+import PersonService from "../../services/person"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,7 +59,7 @@ const UploadForm = ({ handleClose, snackbarMessageFunc }) => {
   } = useForm({ reValidateMode: "onChange" });
 
   const onSubmit = (data) => {
-    ImageService.create(data)
+    PersonService.create(data)
   };
 
   return (
